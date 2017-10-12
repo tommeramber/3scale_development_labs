@@ -21,7 +21,8 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void createProduct(Product prod) {
 		em.persist(prod);
-		em.flush();
+		//em.flush();
+		em.getTransaction().commit();
 	}
 
 	@Override
