@@ -4,7 +4,7 @@
     xmlns:cxf="http://camel.apache.org/schema/cxf"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="             http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd             http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
     <cxf:cxfEndpoint
-        address="http://stores-soap.stores-api.svc.cluster.local:8080/StoresWS"
+	    address="${cxf.endpoint.soap}/StoresWS"
         endpointName="StoresWSPort" id="wsStores" serviceClass="com.redhat.service.Stores"/>
     <bean
         class="org.springframework.boot.context.embedded.ServletRegistrationBean" id="camelServlet">
