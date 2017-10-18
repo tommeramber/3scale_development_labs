@@ -18,7 +18,6 @@
       "name": "ROUTE_HOST",
       "displayName": "HostName",
       "required": true,
-      "value": "stores-fis.3scale1.rhtechofficelatam.com",
       "description": "The name assigned to the application."
     },
     {
@@ -32,7 +31,7 @@
       "name": "GIT_REPO",
       "displayName": "Git Repository URL",
       "required": true,
-      "value": "https://github.com/pszuster/3ScaleTD.git",
+      "value": "https://github.com/gpe-mw-training/3scale_development_labs.git",
       "description": "The URL of the repository with your application source code."
     },
     {

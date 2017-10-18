@@ -35,14 +35,13 @@
             "description": "Specify a custom hostname for the http route.  Leave blank to use default hostname, e.g.: <service-name>-<project>.<default-domain-suffix>",
             "displayName": "Custom http Route Hostname",
             "name": "HOSTNAME_HTTP",
-            "value": "stock-api.3scale1.rhtechofficelatam.com",
             "required": false
         },
         {
             "description": "The URL of the repository with your application source code.",
             "displayName": "Git Repository URL",
             "name": "SOURCE_REPOSITORY_URL",
-            "value": "https://github.com/pszuster/3ScaleTD",
+            "value": "https://github.com/gpe-mw-training/3scale_development_labs.git",
             "required": true
         },
         {
@@ -225,9 +224,26 @@
         "creationTimestamp": null
       },
       "spec": {
-        "strategy": {
-          "type": "Recreate"
-        },
+   "strategy": {
+      "type": "Recreate",
+      "recreateParams": {
+         "timeoutSeconds": 600,
+         "post": {
+            "failurePolicy": "Ignore",
+            "execNewPod": {
+               "command": [
+                  "/bin/sh",
+                  "-i",
+                  "-c",
+                  "hostname&&sleep 10 |  /opt/rh/rh-mysql56/root/usr/bin/mysql -h $STOCKPG_SERVICE_HOST -u $MYSQL_USER -D $MYSQL_DATABASE -p$MYSQL_PASSWORD -P 3306 -e 'CREATE TABLE stock (productid int(11),amount double); INSERT INTO stock(productid,amount) VALUES(1,20),(2,30),(3,1),(4,14),(5,22),(6,880),(7,1200),(8,532),(9,10),(10,1);'"
+               ],
+               "containerName": "mysql"
+            }
+         }
+      },
+      "resources": {},
+      "activeDeadlineSeconds": 21600
+   },
         "triggers": [
           {
             "type": "ConfigChange"
@@ -248,7 +264,7 @@
             "containers": [
               {
                 "name": "mysql",
-                "image": "mysql/mysql-server",
+                "image": "registry.access.redhat.com/rhscl/mysql-56-rhel7",
                 "ports": [
                   {
                     "containerPort": 3306,
@@ -395,7 +411,30 @@
       },
       "spec": {
         "strategy": {
-          "type": "Recreate"
+          "type": "Recreate",
+          "recreateParams": {
+            "timeoutSeconds": 600,
+            "post": {
+               "failurePolicy": "Abort",
+               "execNewPod": {
+                  "command": [
+                     "/bin/sh",
+                     "-i",
+                     "-c",
+                     "sleep 10 && PGPASSWORD=$POSTGRESQL_PASSWORD psql -h $STOCKPG_SERVICE_HOST -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c \"$POSTGRESQL_INIT\""
+                  ],
+                  "env": [
+                     {
+                        "name": "POSTGRESQL_INIT",
+                        "value": "CREATE TABLE public.stock\n(\n  productid integer,\n amount double precision); INSERT INTO stock (productid,amount) VALUES (1,30),(2,14),(3,40),(4,100),(5,2),(6,10),(7,32),(8,1),(9,123),(10,730);"
+                     }
+                  ],
+                  "containerName": "postgresql"
+               }
+            }
+         },
+         "resources": {},
+         "activeDeadlineSeconds": 21600
         },
         "triggers": [
           {
@@ -417,7 +456,7 @@
             "containers": [
               {
                 "name": "postgresql",
-                "image": "postgres",
+                "image": "openshift/postgresql-92-centos7",
                 "ports": [
                   {
                     "containerPort": 5432,
@@ -428,7 +467,7 @@
                   "timeoutSeconds": 1,
                   "initialDelaySeconds": 5,
                   "exec": {
-                    "command": [ "/bin/sh", "-i", "-c", "psql -h 127.0.0.1 -U $POSTGRES_USER -q -d $POSTGRES_DB -c 'SELECT 1'"]
+                    "command": [ "/bin/sh", "-i", "-c", "psql -h 127.0.0.1 -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c 'SELECT 1'"]
                   }
                 },
                 "livenessProbe": {
@@ -440,7 +479,7 @@
                 },
                 "env": [
                   {
-                    "name": "POSTGRES_USER",
+                    "name": "POSTGRESQL_USER",
                     "valueFrom": {
                       "secretKeyRef" : {
                         "name" : "${DATABASE_SERVICE_NAME2}",
@@ -449,7 +488,7 @@
                     }
                   },
                   {
-                    "name": "POSTGRES_PASSWORD",
+                    "name": "POSTGRESQL_PASSWORD",
                     "valueFrom": {
                       "secretKeyRef" : {
                         "name" : "${DATABASE_SERVICE_NAME2}",
@@ -458,7 +497,7 @@
                     }
                   },
                   {
-                    "name": "POSTGRES_DB",
+                    "name": "POSTGRESQL_DATABASE",
                     "value": "RHMart"
                   }
                 ],
