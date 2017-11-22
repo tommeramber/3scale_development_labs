@@ -220,7 +220,16 @@
             "name": "${APP_NAME}:latest"
           }
         },
-        "resources": {}
+        "resources": {
+          "requests": {
+            "cpu": "1.0",
+              "memory": "1Gi"
+            },
+          "limits": {
+            "cpu": "1.0",
+            "memory": "2Gi"
+          }	    
+	}
       },
       "status": {
         "lastVersion": 0
