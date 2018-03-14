@@ -10,7 +10,7 @@
           		{% for section in sections %} 
           		{% assign cleanedsection = section | remove_first: "/" %}
               {% for feature in service.features %}
-          		{% if feature.system_name contains cleanedsection %} 
+          		{% if feature.name contains cleanedsection %} 
           			{% for plan in service.application_plans %}
 
             <div class="col-md-6">
