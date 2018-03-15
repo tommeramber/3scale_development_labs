@@ -188,18 +188,17 @@ objects:
         memory: 1Gi
     runPolicy: Serial
     source:
-      contextDir:
-      git:
-        ref: master
-        type: Git
-        uri: https://github.com/jbride/inventory-service-solution.git
+      dockerfile: |-
+        FROM redhat-openjdk18-openshift:1.1
+        RUN curl http://people.redhat.com/jbride/inventory-service-1.0.0-SNAPSHOT-swarm.jar -o /deployments/inventory-service-swarm.jar
+      type: Dockerfile
     strategy:
-      sourceStrategy:
+      dockerStrategy:
         from:
           kind: ImageStreamTag
           name: redhat-openjdk18-openshift:1.1
           namespace: openshift
-      type: Source
+      type: Docker
     triggers:
     - type: ImageChange
     - type: ConfigChange
