@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="fca7d809-e646-42bf-86a5-6e7154fa9473" activeEnvironment="Default" name="stores-soap-stage-wsdl" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="45e9cd43-ad8b-4a36-9421-53697f7d25e0" wsaVersion="NONE" name="StoresWSServiceSoapBinding" type="wsdl" bindingName="{http://service.redhat.com/}StoresWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/tmp/stores-soap-stage-wsdl.xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/tmp/stores-soap-stage-wsdl.xml"><con:part><con:url>file:/tmp/stores-soap-stage-wsdl.xml</con:url><con:content><![CDATA[<wsdl:definitions name="StoresWSService" targetNamespace="http://service.redhat.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.redhat.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://www.rhmart.com/Stores/">
+  <wsdl:import location="https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS?wsdl=Stores.wsdl&amp;user_key=4fab352901d3badef8cbe9e05eab1271" namespace="http://www.rhmart.com/Stores/"></wsdl:import>
+  <wsdl:binding name="StoresWSServiceSoapBinding" type="ns1:Stores">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createStore">
+      <soap:operation soapAction="http://www.rhmart.com/Stores/createStore" style="document"/>
+      <wsdl:input name="createStore">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createStoreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteStore">
+      <soap:operation soapAction="http://www.rhmart.com/Stores/deleteStore" style="document"/>
+      <wsdl:input name="deleteStore">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteStoreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStore">
+      <soap:operation soapAction="http://www.rhmart.com/Stores/getStore" style="document"/>
+      <wsdl:input name="getStore">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getStoreResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllStores">
+      <soap:operation soapAction="http://www.rhmart.com/Stores/getAllStores" style="document"/>
+      <wsdl:input name="getAllStores">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllStoresResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StoresWSService">
+    <wsdl:port binding="tns:StoresWSServiceSoapBinding" name="StoresWSPort">
+      <soap:address location="https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS?wsdl=Stores.wsdl&amp;user_key=4fab352901d3badef8cbe9e05eab1271</con:url><con:content><![CDATA[<wsdl:definitions name="Stores" targetNamespace="http://www.rhmart.com/Stores/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://www.rhmart.com/Stores/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://www.rhmart.com/Stores/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.rhmart.com/Stores/">
+      <xs:element name="createStore">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="store" type="tns:StoreType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="createStoreResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteStore">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="storeID" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteStoreResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="response" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllStores">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllStoresResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Stores" type="tns:StoresType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getStore">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="storeID" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getStoreResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="store" type="tns:StoreType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="StoreType">
+        <xs:sequence>
+          <xs:element name="storeID" type="xs:int"/>
+          <xs:element name="storeName" type="xs:string"/>
+          <xs:element name="storeLat" type="xs:double"/>
+          <xs:element name="storeLong" type="xs:double"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StoresType">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="store" type="tns:StoreType"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getAllStoresResponse">
+    <wsdl:part element="ns1:getAllStoresResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStoreResponse">
+    <wsdl:part element="ns1:getStoreResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getStore">
+    <wsdl:part element="ns1:getStore" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createStore">
+    <wsdl:part element="ns1:createStore" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteStore">
+    <wsdl:part element="ns1:deleteStore" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteStoreResponse">
+    <wsdl:part element="ns1:deleteStoreResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createStoreResponse">
+    <wsdl:part element="ns1:createStoreResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllStores">
+    <wsdl:part element="ns1:getAllStores" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="Stores">
+    <wsdl:operation name="createStore">
+      <wsdl:input message="ns1:createStore" name="createStore"></wsdl:input>
+      <wsdl:output message="ns1:createStoreResponse" name="createStoreResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteStore">
+      <wsdl:input message="ns1:deleteStore" name="deleteStore"></wsdl:input>
+      <wsdl:output message="ns1:deleteStoreResponse" name="deleteStoreResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getStore">
+      <wsdl:input message="ns1:getStore" name="getStore"></wsdl:input>
+      <wsdl:output message="ns1:getStoreResponse" name="getStoreResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllStores">
+      <wsdl:input message="ns1:getAllStores" name="getAllStores"></wsdl:input>
+      <wsdl:output message="ns1:getAllStoresResponse" name="getAllStoresResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS</con:endpoint></con:endpoints><con:operation id="52ffcd59-6b5f-46e7-a2fd-7ba86fdc7fb2" isOneWay="false" action="http://www.rhmart.com/Stores/createStore" name="createStore" bindingOperationName="createStore" type="Request-Response" outputName="createStoreResponse" inputName="createStore" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="84572c3a-7828-46d4-b6c1-d48af71d474d" name="CreateStore"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="WSDLOperation" value="Stores/createStore" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS?user_key=4fab352901d3badef8cbe9e05eab1271</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.rhmart.com/Stores/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:createStore>
+         <store>
+            <storeID></storeID>
+            <storeName>jb_store</storeName>
+            <storeLat>46.0</storeLat>
+            <storeLong>46.0</storeLong>
+         </store>
+      </stor:createStore>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.rhmart.com/Stores/createStore"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="319f91ff-728f-4790-8544-02c7f2d05e16" isOneWay="false" action="http://www.rhmart.com/Stores/deleteStore" name="deleteStore" bindingOperationName="deleteStore" type="Request-Response" outputName="deleteStoreResponse" inputName="deleteStore" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6ed38fd8-062d-463f-a14a-7c2cb42e1616" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="WSDLOperation" value="Stores/deleteStore" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS?user_key=4fab352901d3badef8cbe9e05eab1271</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.rhmart.com/Stores/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:deleteStore>
+         <storeID>6</storeID>
+      </stor:deleteStore>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.rhmart.com/Stores/deleteStore"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="13557312-9697-4b11-ad2a-cd953850547f" isOneWay="false" action="http://www.rhmart.com/Stores/getAllStores" name="getAllStores" bindingOperationName="getAllStores" type="Request-Response" outputName="getAllStoresResponse" inputName="getAllStores" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c330fe32-3c12-428b-8db2-041253ddea50" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="WSDLOperation" value="Stores/getAllStores" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS?user_key=4fab352901d3badef8cbe9e05eab1271</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.rhmart.com/Stores/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:getAllStores/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.rhmart.com/Stores/getAllStores"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="fbac1c83-2d37-4636-87fa-25b312be2b32" isOneWay="false" action="http://www.rhmart.com/Stores/getStore" name="getStore" bindingOperationName="getStore" type="Request-Response" outputName="getStoreResponse" inputName="getStore" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a9141448-60b9-4d1f-a3d4-fbd98fb30f85" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="WSDLOperation" value="Stores/getStore" xmlns="http://eviware.com/soapui/config"/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://stores-soap-staging-apicast-jb.apps.dev39.openshift.opentlc.com/StoresWS?user_key=4fab352901d3badef8cbe9e05eab1271</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:stor="http://www.rhmart.com/Stores/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <stor:getStore>
+         <storeID>5</storeID>
+      </stor:getStore>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.rhmart.com/Stores/getStore"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
