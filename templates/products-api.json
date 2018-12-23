@@ -372,6 +372,16 @@
                     },
                     "contextDir": "${CONTEXT_DIR}"
                 },
+                "resources": {
+                    "limits": {
+                        "cpu": "500m",
+                        "memory": "2Gi"
+                    },
+                    "requests": {
+                        "cpu": "50m",
+                        "memory": "512Mi"
+                    }
+                },
                 "strategy": {
                     "type": "Source",
                     "sourceStrategy": {
@@ -389,7 +399,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap70-openshift:1.6"
+                            "name": "jboss-eap71-openshift:1.3"
                         }
                     }
                 },
@@ -453,6 +463,7 @@
                         "type": "ConfigChange"
                     }
                 ],
+                "paused": true,
                 "replicas": 1,
                 "selector": {
                     "deploymentConfig": "${APPLICATION_NAME}"
@@ -501,6 +512,16 @@
                                         ]
                                     }
                                 },
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "500m",
+                                        "memory": "1Gi"
+                                    },
+                                    "requests": {
+                                        "cpu": "250m",
+                                        "memory": "256Mi"
+                                    }
+                                },
                                 "ports": [
                                     {
                                         "name": "jolokia",
@@ -519,6 +540,10 @@
                                     }
                                 ],
                                 "env": [
+                                    {
+                                        "name": "JAVA_MAX_MEM_RATIO",
+                                        "value": "85"
+                                    },
                                     {
                                         "name": "OPENSHIFT_KUBE_PING_LABELS",
                                         "value": "application=${APPLICATION_NAME}"
