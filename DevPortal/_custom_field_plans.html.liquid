@@ -3,16 +3,16 @@
         <h1>Pick your plan</h1>
         <br/>
       {% for field in current_account.extra_fields %}
-      {% if field.label contains 'access' %}
-      {% assign access = field.value %}
-      {% endif %}
+        {% if field.label contains 'access' %}
+            {% assign access = field.value %}
+        {% endif %}
       {% endfor %}
           <h1>{{ access }}</h1>
         <div class="row">
           	{% for service in provider.services %} 
           		 {% for feature in service.features %}
           		
-          		 {% if feature.system_name contains access %} 
+          		    {% if feature.system_name contains access %} 
           			{% for plan in service.application_plans %}
 
             <div class="col-md-6">
