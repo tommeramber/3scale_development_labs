@@ -11,21 +11,21 @@
           		{% assign cleanedsection = section | remove_first: "/" %}
               {% for feature in service.features %}
           		{% if feature.name contains cleanedsection %} 
-          			{% for plan in service.application_plans %}
+          			{% for appplan in service.application_plans %}
 
             <div class="col-md-6">
                 <article class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>{{ plan.name }}</strong>
+                        <strong>{{ appplan.name }}</strong>
                     </div>
                     <div class="panel-body">
                         <div class="row">
 
-                            {% if plan.features == present %}
+                            {% if appplan.features == present %}
                             <div class="col-md-6">
                                 <h5>Features</h5>
                                 <ul class="features list-unstyled">
-                                    {% for feature in plan.features %}
+                                    {% for feature in appplan.features %}
                                     <li>
                                         <i class="fa fa-check"></i> {{ feature.name }}
                                     </li>
@@ -35,9 +35,9 @@
                             {% endif %}
 
                             <div class="col-md-6">
-                                <h5>Limits{{ plan.trial_period_days.size }}</h5>
+                                <h5>Limits{{ appplan.trial_period_days.size }}</h5>
                                 <ul class="limits list-unstyled">
-                                    {% if plan.usage_limits == present %} {% for limit in plan.usage_limits %}
+                                    {% if appplan.usage_limits == present %} {% for limit in appplan.usage_limits %}
                                     <li>
                                         <i class="fa fa-signal"></i> {{ limit.metric.name }} &ndash; {{ limit.value }} {{ limit.metric.unit }}s per {{ limit.period }}
                                     </li>
@@ -56,7 +56,7 @@
                             <div class="col-md-12">
                               
                               {% if service.subscription %}
-                                <a type="button" class="btn btn-success pull-right" href="{{urls.new_application}}?service_id={{service.system_name}}&amp;application[plan_id]={{plan.id}}">Signup to plan {{ plan.name }}</a>
+                                <a type="button" class="btn btn-success pull-right" href="{{urls.new_application}}?service_id={{service.system_name}}&amp;application[plan_id]={{appplan.id}}">Signup to plan {{ appplan.name }}</a>
                               {% else %}
                                 <a href="{{urls.service_subscription}}?service_id={{service.id}}" class="btn btn-success pull-right">Subscribe to the {{ service.name }} service</a>
                               {% endif %}                                                      
