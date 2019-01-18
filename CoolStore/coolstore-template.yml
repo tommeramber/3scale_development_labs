@@ -192,6 +192,41 @@ objects:
     selector:
       deploymentconfig: inventory-postgresql
     strategy:
+      recreateParams:
+        post:
+          execNewPod:
+            command:
+              - /bin/sh
+              - -i
+              - -c
+              - sleep 10 && PGPASSWORD=$POSTGRESQL_PASSWORD psql -h $INVENTORY_PSQL_SERVICE_HOST -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c "$POSTGRESQL_INIT"
+            containerName: ${INVENTORY_SERVICE_NAME}-psql
+            env:
+            - name: POSTGRESQL_INIT
+              value: CREATE TABLE product_inventory (itemid character varying(255)
+                NOT NULL,link character varying(255),location character varying(255),
+               quantity integer NOT NULL);
+                ALTER TABLE product_inventory OWNER TO jboss;ALTER TABLE ONLY product_inventory
+                ADD CONSTRAINT product_inventory_pkey PRIMARY KEY (itemid);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('329299', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 736);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('329199', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 512);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('165613', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 256);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('165614', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 29);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('165954', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 87);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('444434', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 443);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('444435', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 600);
+                INSERT into product_inventory (itemid, link, location, quantity)
+                values ('444436', 'http://maps.google.com/?q=Tokyo', 'Tokyo', 230);
+          failurePolicy: ignore
+        timeoutSeconds: 600
+      resources: {}
       type: Recreate
     template:
       metadata:
@@ -418,6 +453,46 @@ objects:
       deploymentconfig: catalog-mongodb
     strategy:
       recreateParams:
+        post:
+          execNewPod:
+            command:
+              - /bin/sh
+              - -i
+              - -c
+              - sleep 10 && /opt/rh/rh-mongodb32/root/usr/bin/mongo $CATALOG_MONGODB_SERVICE_HOST:27017/$MONGODB_DATABASE -u $MONGODB_USER -p $MONGODB_PASSWORD
+                --eval="$MONGODB_INIT"
+            containerName: catalog-mongodb
+            env:
+            - name: MONGODB_INIT
+              value: db.products.insert({"_id":"329299","itemId":"329299","name":"Red Fedora",
+                "desc":"Official Red Hat Fedora","price":34.99});
+                db.products.insert({"_id":"329199","itemId":"329199","name":"Forge Laptop Sticker",
+                "desc":"JBoss Community Forge Project Sticker","price":8.50});
+                db.products.insert({"_id":"165613","itemId":"165613","name":"Solid Performance Polo",
+                "desc":"Moisture-wicking, antimicrobial 100% polyester design wicks for life of garment. 
+                No-curl, rib-knit collar; special collar band maintains crisp fold; three-button placket 
+                with dyed-to-match buttons; hemmed sleeves; even bottom with side vents; Import. 
+                Embroidery. Red Pepper.","price":17.80});
+                db.products.insert({"_id":"165614","itemId":"165614","name":"Ogio Caliber Polo",
+                "desc":"Moisture-wicking 100% polyester. Rib-knit collar and cuffs; Ogio jacquard tape inside 
+                neck; bar-tacked three-button placket with Ogio dyed-to-match buttons; side vents; tagless; 
+                Ogio badge on left sleeve. Import. Embroidery. Black.","price":28.75});
+                db.products.insert({"_id":"165954","itemId":"165954","name":"16 oz. Vortex Tumbler",
+                "desc":"Double-wall insulated, BPA-free, acrylic cup. Push-on lid with thumb-slide closure; 
+                for hot and cold beverages. Holds 16 oz. Hand wash only. Imprint. Clear.","price":6.00});
+                db.products.insert({"_id":"444434","itemId":"444434","name":"Pebble Smart Watch",
+                "desc":"Smart glasses and smart watches are perhaps two of the most exciting developments in recent 
+                years. ","price":24.00});
+                db.products.insert({"_id":"444435","itemId":"444435","name":"Oculus Rift",
+                "desc":"The world of gaming has also undergone some very unique and compelling tech advances in recent years. 
+                Virtual reality, the concept of complete immersion into a digital universe through a special headset, has 
+                been the white whale of gaming and digital technology ever since Nintendo marketed its Virtual Boy gaming 
+                system in 1995.","price":106.00});
+                db.products.insert({"_id":"444436","itemId":"444436","name":"Lytro Camera",
+                "desc":"Consumers who want to up their photography game are looking at newfangled cameras like the Lytro Field 
+                camera, designed to take photos with infinite focus, so you can decide later exactly where you want the focus of 
+                each image to be.","price":44.30});
+          failurePolicy: ignore
         timeoutSeconds: 600
       resources: {}
       type: Recreate
