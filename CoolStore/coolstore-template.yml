@@ -244,7 +244,7 @@ objects:
         from:
           kind: ImageStreamTag
           name: postgresql:latest
-          namespace: ${IMAGE_STREAM_NAMESPACE}
+          namespace: openshift
       type: ImageChange
     - type: ConfigChange
 - apiVersion: v1
@@ -495,7 +495,7 @@ objects:
         from:
           kind: ImageStreamTag
           name: mongodb:3.2
-          namespace: ${IMAGE_STREAM_NAMESPACE}
+          namespace: openshift
       type: ImageChange
     - type: ConfigChange
 
