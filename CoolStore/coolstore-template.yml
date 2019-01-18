@@ -199,14 +199,14 @@ objects:
               - /bin/sh
               - -i
               - -c
-              - sleep 10 && PGPASSWORD=$POSTGRESQL_PASSWORD psql -h $INVENTORY_PSQL_SERVICE_HOST -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c "$POSTGRESQL_INIT"
-            containerName: ${INVENTORY_SERVICE_NAME}-psql
+              - sleep 10 && PGPASSWORD=$POSTGRESQL_PASSWORD psql -h inventory-postgresql -U $POSTGRESQL_USER -q -d $POSTGRESQL_DATABASE -c "$POSTGRESQL_INIT"
+            containerName: inventory-postgresql
             env:
             - name: POSTGRESQL_INIT
               value: CREATE TABLE product_inventory (itemid character varying(255)
                 NOT NULL,link character varying(255),location character varying(255),
                quantity integer NOT NULL);
-                ALTER TABLE product_inventory OWNER TO jboss;ALTER TABLE ONLY product_inventory
+                ALTER TABLE ONLY product_inventory
                 ADD CONSTRAINT product_inventory_pkey PRIMARY KEY (itemid);
                 INSERT into product_inventory (itemid, link, location, quantity)
                 values ('329299', 'http://maps.google.com/?q=Raleigh', 'Raleigh', 736);
