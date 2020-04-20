@@ -6,8 +6,8 @@
             "iconClass": "icon-jboss",
             "description": "Stores SOAP Template.",
             "tags": "eap,javaee,java,jboss,xpaas",
-            "version": "1.4.0",
-            "openshift.io/display-name": "Red Hat JBoss EAP 7.0 (no https)"
+            "version": "1.1.0",
+            "openshift.io/display-name": "Red Hat JBoss EAP 7.2 (no https)"
         },
         "name": "stores-soap"
     },
@@ -238,7 +238,7 @@
                 ],
                 "readinessProbe": {
                   "timeoutSeconds": 1,
-                  "initialDelaySeconds": 5,
+                  "initialDelaySeconds": 20,
                   "exec": {
                     "command": [ "/bin/sh", "-i", "-c",
                       "MYSQL_PWD=\"$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u $MYSQL_USER -D $MYSQL_DATABASE -e 'SELECT 1'"]
@@ -410,7 +410,7 @@
                         "from": {
                             "kind": "ImageStreamTag",
                             "namespace": "${IMAGE_STREAM_NAMESPACE}",
-                            "name": "jboss-eap70-openshift:1.7"
+                            "name": "jboss-eap72-openshift:1.1"
                         }
                     }
                 },
@@ -505,6 +505,8 @@
                                     }
                                 },
                                 "livenessProbe": {
+                                    "timeoutSeconds": 5,
+                                    "initialDelaySeconds": 30,
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
@@ -514,6 +516,8 @@
                                     }
                                 },
                                 "readinessProbe": {
+                                    "timeoutSeconds": 5,
+                                    "initialDelaySeconds": 20,
                                     "exec": {
                                         "command": [
                                             "/bin/bash",
