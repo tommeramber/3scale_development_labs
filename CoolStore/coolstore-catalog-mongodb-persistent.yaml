@@ -305,7 +305,6 @@ objects:
     - port: 8080
       targetPort: 8080
     selector:
-      matchLabels:
         application: ${CATALOG_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
