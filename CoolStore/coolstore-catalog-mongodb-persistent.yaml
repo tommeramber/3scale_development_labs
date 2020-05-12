@@ -216,8 +216,6 @@ objects:
   metadata:
     labels:
       application: catalog-service
-      deployment: catalog-service
-      name: catalog-service
     name: catalog-service
   spec:
     # JA Bride:  setting all DCs to paused.  Will then start each one via ansible
@@ -307,8 +305,7 @@ objects:
     - port: 8080
       targetPort: 8080
     selector:
-      matchLabels:
-        deployment: catalog-service
+      deployment: catalog-service
     sessionAffinity: None
     type: ClusterIP
 
