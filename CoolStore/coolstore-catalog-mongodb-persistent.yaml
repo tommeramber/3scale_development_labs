@@ -305,7 +305,8 @@ objects:
     - port: 8080
       targetPort: 8080
     selector:
-      deployment: catalog-service
+      matchLabels:
+        application: catalog-service
     sessionAffinity: None
     type: ClusterIP
 
